@@ -18,6 +18,7 @@ appsignal = Appsignal(
     name="fastapi-render-appsignal",    
     # https://docs.appsignal.com/python/configuration/options.html#option-push_api_key
     push_api_key=os.getenv("APPSIGNAL_API_KEY"),
-	revision=revision
+	revision=revision,
+    environment="production"
 )
 
