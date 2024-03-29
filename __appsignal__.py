@@ -4,10 +4,14 @@ from appsignal import Appsignal
 from dotenv import load_dotenv
 load_dotenv()
 
-revision = subprocess \
-    .run(["git", "log", "--pretty=format:%h", "-n 1"], stdout=subprocess.PIPE) \
-    .stdout \
-    .decode("utf-8")
+revision = None
+
+try:
+    revision = subprocess.check_output(
+        "git log --pretty=format:'%h' -n 1", shell=True
+    ).strip()
+except subprocess.CalledProcessError:
+  pass
 
 appsignal = Appsignal(
     active=True,
