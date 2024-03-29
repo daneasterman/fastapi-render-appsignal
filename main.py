@@ -1,6 +1,8 @@
 # main.py
-
 from fastapi import FastAPI
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+import appsignal
+appsignal.start()
 
 app = FastAPI()
 
@@ -11,3 +13,5 @@ async def root():
 @app.get("/items/{item_id}")
 async def get_item(item_id: int):
 	return {"item_id": item_id}
+
+FastAPIInstrumentor().instrument_app(app)
